@@ -41,14 +41,16 @@ def ExtractionDesRequete(infile, antipath, vocab):
                 vq[word] += 1
     
     # Multiplier tf pour idf
+    final_vq = {}
     for term, tf in vq.items():
         # traiter les cas où le term n'est pas dans vocab:
         # enlever le mot de la requete, ajouter if else
-        vq[term] = tf*vocab[term][1]
+        if term in vocab:
+            final_vq[term] = tf*vocab[term][1]
 
     fileHandler.close()
 
-    return vq
+    return final_vq
 
 vq = ExtractionDesRequete("requet.txt", "./files/common_words" , vocabulaire)
 print(vq)
